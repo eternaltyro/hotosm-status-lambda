@@ -18,11 +18,11 @@ def lambda_handler(event, context):
 
     kwargs = {
         'api_endpoint': os.environ['API_ENDPOINT'],
-        'component_id': 'BBmI7qnHfrwn',
+        'component_id': '6cQeZAT8Yeo3',
         'api_key': os.environ['API_KEY']
     }
 
-    r = requests.get("https://tasks.hotosm.org/api/health-check", headers={'Accept':'application/json'})
+    r = requests.get("https://visualize-change.hotosm.org/api/health-check", headers={'Accept':'application/json'})
 
     if not r.ok:
     	r = requests.patch("https://{api_endpoint}/api/v0/components/{component_id}".format(**kwargs), json={'status': status_opts[4]}, headers={'x-api-key': kwargs['api_key']})
