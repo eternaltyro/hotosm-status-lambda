@@ -6,8 +6,8 @@ This repo has a set of python & JS functions which can be uploaded to AWS Lambda
 
 - Each lambda is treated as a new component. Generate a new component using:
 
-```curl -X PATCH "https://<your_api_endpoint>/api/v0/components/<your_component_id>" \
-  -d '{"status":"Major Outage"}' \
+```curl -X POST "https://<your_api_endpoint>/api/v0/components" \
+  -d '{"name":"Website", "description":"", "status":"Operational"}' \
   -H "x-api-key: <your_api_key>" -H "Content-Type: application/json"```
 
 - Check the list of existing components using:
@@ -20,6 +20,8 @@ This repo has a set of python & JS functions which can be uploaded to AWS Lambda
 ```curl -X PATCH "https://<your_api_endpoint>/api/v0/components/<your_component_id>" \
   -d '{"status":"Major Outage"}' \
   -H "x-api-key: <your_api_key>" -H "Content-Type: application/json"```
+
+[Complete API Reference](https://lambstatus.github.io/apidocs)
 
 ## How to upload
 
