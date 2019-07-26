@@ -28,15 +28,17 @@ exports.handler = function index (event, context, callback) {
   var data = {
     'status': status[0]
   }
-  options.url = 'http://overpass-api.de/api/augmented_diff_status'
-  request(options, function (error, response, body) {
+  var fetchOptions = {}
+  fetchOptions.url = 'http://overpass-api.de/api/augmented_diff_status'
+  request(fetchOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       overpassDiff = body.trim()
-      options.url = 'http://overpass.hotosm.org/api/augmented_diff_status'
-      request(options, function (error, response, body) {
+      fetchOptions.url = 'http://overpass.hotosm.org/api/augmented_diff_status'
+      request(fetchOptions, function (error, response, body) {
         if (!error && response.statusCode === 200) {
           hotDiff = body.trim()
           const difference = overpassDiff - hotDiff
+          console.log('Difference: ', difference)
           if (difference > 15) {
             data.status = status[2]
             console.log('HOT augmented diff behind overpass by ', overpassDiff - hotDiff)
@@ -44,6 +46,8 @@ exports.handler = function index (event, context, callback) {
           const req = https.request(options, (res) => {
             console.log('statusCode: ', res.statusCode)
           })
+          console.log(JSON.stringify(data))
+          console.log(options)
           req.write(JSON.stringify(data))
           req.end()
         } else {
